@@ -1,0 +1,197 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+int data;
+struct node* next, *prev};
+struct node* head=NULL, *temp, *previous;
+
+void insertbeg(int val){
+struct node* new=(struct node*)malloc (sizeof(struct node));
+new->prev=NULL;
+new->data=val;
+new->next=head;
+head=new;
+if(head!=NULL){
+head->prev=new;
+head=new;}
+return;
+}
+
+void insertend(int val){
+struct node* new=(struct node*)malloc (sizeof(struct node));
+new->prev=NULL;
+new->data=val;
+new->next=NULL;
+if(head==NULL){
+    head=new;
+}
+else{
+temp=head;
+while(temp->next!=NULL){
+temp=temp->next;}
+temp->next=new;
+new->prev=temp;}
+return;}
+
+void insertpos(int pos, int val){
+printf("enter position where you want to insert\n");
+scanf("%d",&pos);
+printf("enter value to be inserted\n");
+scanf("%d",&val);
+if(pos==1)
+{
+    insertbeg(val);
+    return;
+}
+temp=head;
+int i=1;
+while((i<pos)&& (temp!=NULL)){
+previous=temp;
+temp=temp->next;
+i++;}
+if((i==pos)&& (temp!=NULL)){
+struct node* new=(struct node*)malloc (sizeof(struct node));
+new->data=val;
+new->next=temp;
+temp->prev=new;
+new->prev=previous;
+previous->next=new;
+printf("%d is inserted at position %d", val,pos);}
+else{printf("position not found\n");}
+return;
+}
+
+void insertafterpos(int pos, int val){
+    printf("enter position where you want to insert\n");
+scanf("%d",&pos);
+printf("enter value to be inserted\n");
+scanf("%d",&val);
+if(pos==1)
+{
+    insertbeg(val);
+    return;
+}
+temp=head;
+int i=1;
+while((i<=pos)&& (temp!=NULL)){
+previous=temp;
+temp=temp->next;
+i++;}
+if((i>pos)&& (temp!= NULL)){
+struct node* new=(struct node*)malloc (sizeof(struct node));
+new->data=val;
+new->next=temp;
+temp->prev=new;
+new->prev=previous;
+previous->next=new;
+printf("%d is inserted after position %d", val,pos);}
+else{printf("position not found\n");}
+return;
+}
+
+void delbeg(){
+temp=head;
+head=temp->next;
+printf("deleted value is %d\n",temp->data);
+free(temp);}
+
+void delend(){
+temp=head;
+while(temp->next !=NULL){
+    previous=temp;
+    temp=temp->next;}
+    previous->next=NULL;
+    printf("deleted value is %d\n",temp->data);
+    free(temp);
+}
+
+void delpos(int pos){
+    printf("enter position:\n");
+    scanf("%d",&pos);
+if(pos==1){
+    delbeg();
+    return;
+}
+temp=head;
+int i=1;
+while((i<pos) && (temp!=NULL)){
+    previous=temp;
+    temp=temp->next;
+    i++;}
+if((i==pos)&& (temp!=NULL)){
+    previous->next=temp->next;
+    (temp->next)->prev=previous;
+    printf("%d is deleted\n",temp->data);
+    free(temp);
+}
+else{printf("position not found\n");}
+return;
+}
+void display(){
+    if(head==NULL){
+        printf("list empty\n");
+        return;
+    }
+    else{
+temp=head;
+printf("List contains following elements:\n");
+while(temp!=NULL){
+printf("%d\n",temp->data);
+temp=temp->next;}}}
+
+
+int main(){
+int choice,val,pos;
+while(1){
+printf("list menu\n");
+printf("1. for insert at beginning \n2. for insert at end \n3. for insert at any position \n4 for insert after position \n5. for delete from beginning \n6. for delete from end \n7. for delete from any position \n8. for display \n9. for exit \n ");
+printf("enter choice:\n");
+scanf("%d",&choice);
+
+switch(choice){
+case 1:
+printf("enter value\n");
+scanf("%d",&val);
+insertbeg(val);
+printf("%d is inserted\n",val);
+break;
+
+case 2:
+printf("enter value\n");
+scanf("%d",&val);
+insertend(val);
+printf("%d is inserted\n",val);
+break;
+
+case 3:
+insertpos(pos,val);
+break;
+
+case 4:
+insertafterpos(pos,val);
+break;
+case 5:
+delbeg();
+break;
+
+case 6:
+delend();
+break;
+
+case 7:
+delpos(pos);
+break;
+
+
+case 8:
+    display();
+break;
+
+case 9:
+printf("exiting program\n");
+exit(0);
+break;
+
+default:
+printf("invalid choice\n");}}
+return 0;}
