@@ -1,0 +1,71 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 10
+int arr[MAX];
+int front=-1;
+int rear=-1;
+void insert(int val){
+if(front==(rear+1)%MAX){
+printf("queue overflow");}
+else if(front==-1 && rear==-1){
+front=0;
+rear=0;
+arr[rear]=val;}
+else{
+rear=(rear+1)%MAX;
+arr[rear]=val;}
+printf("inserted value is %d\n", arr[rear]);}
+
+void delete(){
+if(front==-1 && rear==-1){
+printf("queue underflow");}
+else if(front==rear){
+front=-1;
+rear=-1;}
+else{
+printf("deleted value is %d\n", arr[front]);
+front=(front+1)%MAX;}}
+
+void display(){
+if(front==-1 && rear==-1){
+printf("queue underflow");}
+else if(rear>=front){
+for(int i=front; i<=rear;i++){
+printf("%d",arr[i]);}}
+else{
+for(int i=front;i<=MAX-1;i++)
+printf("%d:",arr[i]);
+for(int i=0;i<=rear;i++)
+    printf("%d",arr[i]);}}
+
+void main(){
+int choice,val;
+while(1){
+printf("\n 1. for insert \n2. for delete \n3. for display \n4. for exit");
+printf("\nenter choice:");
+scanf("%d",&choice);
+
+switch(choice){
+case 1:
+printf("\nenter value to be inserted:");
+scanf("%d",&val);
+insert(val);
+break;
+
+case 2:
+delete();
+break;
+
+case 3:
+display();
+break;
+
+case 4:
+printf("\nexiting program");
+exit(0);
+break;
+
+default:
+printf("invalid choice\n");
+}}
+}
