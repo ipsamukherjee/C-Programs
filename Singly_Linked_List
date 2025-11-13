@@ -1,0 +1,175 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+int data;
+struct node* next};
+struct node* head=NULL;
+
+//insert at beg
+void insertbeg(int val){
+struct node* new=(struct node*)malloc (sizeof(struct node));
+new->data=val;
+new->next=head;
+head=new;
+printf("inserted value is %d\n",val);}
+
+//insert at end
+void insertend(int val){
+struct node* temp;
+struct node* new=(struct node*)malloc(sizeof(struct node));
+new->data=val;
+new->next=NULL;
+if(head==NULL){
+    head=temp=new;}
+else{
+    new->next=NULL;
+    temp=head;
+    while(temp->next!=NULL){
+        temp=temp->next;}
+    temp->next=new;
+    }
+ printf("inserted value is %d\n",val);
+}
+
+void insertpos(int val,int pos){
+struct node* new=(struct node*)malloc (sizeof(struct node));
+new->data=val;
+new->next=NULL;
+if(pos==1){
+new->next=head;
+head=new;
+printf("inserted %d at position %d\n",val,pos);
+return;}
+
+struct node* temp;
+temp=head;
+int i=1;
+while(i<pos-1 && temp!=NULL){
+temp=temp->next;
+i++;}
+if(temp==NULL){
+free(new);
+}
+else{
+new->next=temp->next;
+temp->next=new;}
+printf("inserted %d at position %d\n",val,pos);
+}
+
+ //DELETION
+void delbeg(){
+struct node* temp;
+if(head==NULL){
+    printf("nothing to delete");
+}
+else{
+    temp=head;
+    head=head->next;
+    printf("deleted value is %d\n", temp->data);
+    free(temp);
+}
+return;
+}
+
+void delend(){
+struct node* temp, *prev;
+if(head==NULL){
+    printf("nothing to delete");
+}
+else{
+temp=head;
+while(temp->next!=NULL){
+prev=temp;
+temp=temp->next;}
+if(temp==head){
+    head=NULL;
+    free(temp);
+}
+else{
+    prev->next=NULL;
+    printf("deleted value is %d\n", temp->data);
+    free(temp);
+}
+}
+return;
+}
+
+void delpos(){
+    struct node* temp, *nextnode;
+    int pos, i=1;
+    temp=head;
+    printf("enter position");
+    scanf("%d",&pos);
+    while(i<pos-1){
+        temp=temp->next;
+        i++;
+    }
+    nextnode=temp->next;
+    temp->next=nextnode->next;
+    printf("deleted value is %d\n",nextnode->data);
+    free(nextnode);
+    return;
+}
+
+void display(){
+
+struct node* temp=head;
+printf("Linked List is:\n");
+while(temp!=NULL){
+printf("%d\n",temp->data);
+temp=temp->next;}
+}
+
+int main(){
+int choice,val,pos;
+while(1){
+printf("list menu\n");
+printf("1. for insert at beginning \n2. for insert at end \n3. for insert at any position \n4. for delete from beginning \n5. for delete from end \n6. for delete from any position \n7. for display \n8. for exit \n ");
+printf("enter choice:\n");
+scanf("%d",&choice);
+
+switch(choice){
+case 1:
+printf("enter value\n");
+scanf("%d",&val);
+insertbeg(val);
+break;
+
+case 2:
+printf("enter value\n");
+scanf("%d",&val);
+insertend(val);
+break;
+
+case 3:
+printf("enter value\n");
+scanf("%d",&val);
+printf("enter position:\n");
+scanf("%d",&pos);
+insertpos(val,pos);
+break;
+
+case 4:
+delbeg();
+break;
+
+case 5:
+delend();
+break;
+
+case 6:
+delpos();
+break;
+
+case 7:
+display();
+break;
+
+case 8:
+printf("exiting program\n");
+exit(0);
+break;
+
+default:
+printf("invalid choice\n");}}
+return 0;}
