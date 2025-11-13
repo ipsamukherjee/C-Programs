@@ -1,0 +1,61 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 20
+int arr[MAX];
+int top=-1;
+void push(int val){
+if(top==MAX-1){
+printf("stack overflow");}
+else{
+top++;
+arr[top]=val;
+printf("pushed value is: %d",arr[top]);}}
+
+void pop(){
+if(top<0){
+printf("stack underflow");}
+else{
+printf("popped value is: %d", arr[top]);
+top--;}}
+
+void peek(){
+printf("peek value is: %d",arr[top]);}
+
+void display(){
+printf("stack elements are:");
+for(int i=top;i>=0;i--){
+printf("%d",arr[i]);}}
+
+int main(){
+int choice, val;
+while(1){
+printf("\n1. for push\n 2. for pop\n 3. for peek\n 4. for display\n 5. for exit");
+printf("\nEnter your choice:");
+scanf("%d",&choice);
+switch(choice){
+case 1:
+printf("\nenter value to be pushed:");
+scanf("%d",&val);
+push(val);
+break;
+
+case 2:
+pop();
+break;
+
+case 3:
+peek();
+break;
+
+case 4:
+display();
+break;
+
+case 5:
+printf("\n exiting program");
+exit(0);
+break;
+
+default:
+printf("invalid choice");}}
+return 0;}
